@@ -15,7 +15,6 @@ import HelpPage  from './screens/helpPage';
 
 function App() {
   const location = useLocation();
-  console.log(location);
   return (
     <>
         {location.pathname === "/" ? <HomeNavbar/> : <OtherNavbar/>}

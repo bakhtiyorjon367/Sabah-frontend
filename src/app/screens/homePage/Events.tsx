@@ -67,6 +67,7 @@ export default function Events() {
             );
           })}
         </Swiper>
+
         <Box className={"prev-next-frame"}>
           <img
             src={"/icons/arrow-right.svg"}
