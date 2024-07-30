@@ -13,7 +13,15 @@ export default function HomeNavbar(){
     useEffect(() => {
         console.log("componentDidMount"); //DATA FETCH(BRING)
         setCount(count + 1);
+
+        return() =>{
+            console.log("componentWillUnmount");
+        }
     },[value]);
+
+
+
+    
     // Handlers
 
     const buttonHandler = () => {
