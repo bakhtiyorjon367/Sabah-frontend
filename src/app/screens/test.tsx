@@ -19,12 +19,12 @@ class Test extends Component {
     };
 
     componentDidMount(){
-        console.log("componentDidMount");
+       // console.log("componentDidMount");
         //runs after fist render --> RETRIVE DATA FROM BACKEND SERVER
     }
 
     componentWillUnmount(){
-        console.log("componentWillUnmount");
+        //console.log("componentWillUnmount");
         // runs before component unmount  --> DOING TASTK BEROFE VANISHING
     }
 
