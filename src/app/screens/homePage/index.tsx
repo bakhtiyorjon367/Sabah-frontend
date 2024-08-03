@@ -15,7 +15,7 @@ import { retrievePopularDishes } from "./selector";
 import { Product } from "../../../lib/types/product";
 //REDUX SLICE  & SELECTOR 
 
-const actionDispach = (dispatch: Dispatch) => ({
+const actionDispatch = (dispatch: Dispatch) => ({
   setPopularDishes: (data:Product[]) => dispatch(setPopularDishes(data))
   });
 
@@ -25,15 +25,38 @@ const popularDishesRetriever = createSelector(
   );
 
 export default function HomePage() {
-const {setPopularDishes} = actionDispach(useDispatch());
+const {setPopularDishes} = actionDispatch(useDispatch());
 const {popularDishes} = useSelector(popularDishesRetriever);
 
-  useEffect(() =>{
-  
+  useEffect(() =>{  //Backend server data request -> Data
+    const result = [
+      {
+          "_id": "66a5124a5230cb3458e934e0",
+          "productStatus": "PROCESS",
+          "productCollection": "DRINK",
+          "productName": "Dena",
+          "productPrice": 12,
+          "productLeftCount": 100,
+          "productSize": "NORMAL",
+          "productVolume": 1,
+          "productImages": [
+              "uploads/products/cbd7ea18-7f3c-47c3-a735-a1558f93266b.png"
+          ],
+          "productView": 0,
+          "createdAt": "2024-07-27T15:29:14.137Z",
+          "updatedAt": "2024-07-27T15:29:14.137Z",
+          "__v": 0
+      }
+    ];
+
+    // Slice: Data -> Store
+    //@ts-ignore
+    setPopularDishes(result);
+    
   },[]);
 
-  
-  console.log("popular dishes->", popularDishes);
+  console.log('result  ---->', process.env.REACT_APP_API_URL);
+
     return <div className={"homepage"}>
       <Statistics/>
       <PopularDishes/>
@@ -42,5 +65,5 @@ const {popularDishes} = useSelector(popularDishesRetriever);
       <ActiveUsers/>
       <Events/>
     </div>;
-  }
+}
   
