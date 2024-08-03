@@ -7,15 +7,24 @@ import Typography from '@mui/joy/Typography';
 import { CssVarsProvider } from "@mui/joy/styles";
 import VisibilityIcon from  "@mui/icons-material/Visibility";
 import Divider from "../../components/divider";
+import { retrieveNewDishes } from "./selector";
 
-const newDishes = [
-    {productName: "Cutlet", imagePath: "/img/cutlet.webp"},
-    {productName: "Kebab", imagePath: "/img/kebab-fresh.webp"},
-    {productName: "Kebab", imagePath: "/img/kebab.webp"},
-    {productName: "Lavash", imagePath: "/img/lavash.webp"},
-];
+import { useSelector } from "react-redux";
+import { createSelector } from "reselect";
+import { retrievePopularDishes } from "./selector";
+import { Product } from "../../../lib/types/product";
+import { ProductCollection } from "../../../lib/enums/product.enum";
+import { serverApi } from "../../../lib/config";
+
+const popularDishesRetriever = createSelector(
+    retrieveNewDishes,
+     (newDishes) => ({newDishes})
+    );
 
 export default function NewDishes(){
+
+    const {newDishes} = useSelector(popularDishesRetriever);
+
     return(
         <div className={"new-products-frame"}>
             <Container>
@@ -24,13 +33,17 @@ export default function NewDishes(){
                     <Stack className={"cards-frame"}>
                         <CssVarsProvider>
                             {newDishes.length !== 0 ? (
-                                newDishes.map((ele, index) => {
+                                newDishes.map((product:Product) => {
+                                    const imagePath = `${serverApi}/${product.productImages[0]}`;
+                                    const sizeVolume = product.productCollection === ProductCollection.DRINK
+                                                        ? product.productVolume + " liter" 
+                                                        : product.productSize   + " size"; 
                                     return(
-                                        <Card key={index} variant="outlined" className={"card"}>
+                                        <Card key={product._id} variant="outlined" className={"card"}>
                                             <CardOverflow>
-                                                <div className="product-sale"> Normal size</div>
+                                                <div className="product-sale"> {sizeVolume} </div>
                                                 <AspectRatio ratio="1"> 
-                                                    <img src={ele.imagePath} alt="" />
+                                                    <img src={imagePath} alt="" />
                                                 </AspectRatio>
                                             </CardOverflow>
     
@@ -38,14 +51,14 @@ export default function NewDishes(){
                                                 <Stack className="info">
                                                     <Stack flexDirection={"row"}>
                                                         <Typography className={"title"}> 
-                                                            {ele.productName}
+                                                            {product.productName}
                                                         </Typography>
                                                         <Divider width="2" height="24" bg="#d9d9d9"/>
-                                                        <Typography className={"price"} > $12 </Typography>
+                                                        <Typography className={"price"} > ${product.productPrice}</Typography>
                                                     </Stack>
                                                     <Stack>
                                                         <Typography className={"views"}>
-                                                            20
+                                                            {product.productView}
                                                             <VisibilityIcon 
                                                                 sx={{fontSize:20, marginLeft: "5px"}}
                                                             />
