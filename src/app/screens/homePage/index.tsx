@@ -17,14 +17,15 @@ import { Member } from "../../../lib/types/member";
 
 //REDUX SLICE   (writing data to redux)
 const actionDispatch = (dispatch: Dispatch) => ({
-        setPopularDishes: (data:Product[]) => dispatch(setPopularDishes(data)),
-        setNewDishes:     (data:Product[]) => dispatch(setNewDishes(data)),
-        setTopUsers:      (data:Member[])  => dispatch(setTopUsers(data)),
+        setPopularDishes:   (data:Product[]) => dispatch(setPopularDishes(data)),
+        setNewDishes: (data:Product[]) => dispatch(setNewDishes(data)),
+        setTopUsers:  (data:Member[])  => dispatch(setTopUsers(data)),
 });
 
 
 
 export default function HomePage() {
+  
 const {setPopularDishes, setNewDishes, setTopUsers } = actionDispatch(useDispatch());
 
 

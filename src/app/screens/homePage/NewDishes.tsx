@@ -16,14 +16,14 @@ import { Product } from "../../../lib/types/product";
 import { ProductCollection } from "../../../lib/enums/product.enum";
 import { serverApi } from "../../../lib/config";
 
-const popularDishesRetriever = createSelector(
+const newDishesRetriever = createSelector(
     retrieveNewDishes,
      (newDishes) => ({newDishes})
     );
 
 export default function NewDishes(){
 
-    const {newDishes} = useSelector(popularDishesRetriever);
+    const {newDishes} = useSelector(newDishesRetriever);
 
     return(
         <div className={"new-products-frame"}>

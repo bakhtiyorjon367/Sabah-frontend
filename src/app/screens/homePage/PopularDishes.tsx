@@ -18,12 +18,14 @@ import { serverApi } from "../../../lib/config";
 
 //REDUX SELECTOR 
 const popularDishesRetriever = createSelector(
-  retrievePopularDishes,
+    retrievePopularDishes,
    (popularDishes) => ({popularDishes})
   );
 
 export default function PopularDishes(){
+
     const {popularDishes} = useSelector(popularDishesRetriever);
+
     return(
         <div className="popular-dishes-frame">
             <Container>
@@ -31,7 +33,7 @@ export default function PopularDishes(){
                     <Box className="category-title">Popular Dishes</Box>
                     <Stack className="cards-frame">
                         {popularDishes.length !== 0 ? (
-                            popularDishes.map((product) => {
+                            popularDishes.map((product:Product) => {
                                 const imagePath = `${serverApi}/${product.productImages[0]}`;
                                 return(
                                     <CssVarsProvider key={product._id}>
