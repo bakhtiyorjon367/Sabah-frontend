@@ -41,7 +41,7 @@ export default function Products(){//___________________________________________
         search:""
     });
     const [searchText, setSearchText] = useState<string>("");
-    const histor = useHistory();
+    const history = useHistory();
 
 
  /** _________________________________________useEffect_____________________________________*/
@@ -89,7 +89,7 @@ export default function Products(){//___________________________________________
     });
 
     const chooseDishHandler = ((id:string) => {
-        histor.push(`/products/${id}`);
+        history.push(`/products/${id}`);
     })
 
 

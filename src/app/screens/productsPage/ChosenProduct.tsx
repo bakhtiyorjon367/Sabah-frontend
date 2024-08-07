@@ -18,10 +18,14 @@ import { Product } from "../../../lib/types/product";
 import {  setChosenProduct, setRestaurant } from "./slice";
 import { retrieveChosenProduct, retrieveProducts, retrieveRestaurant } from "./selector";
 import { Member } from "../../../lib/types/member";
+import { useParams } from "react-router-dom";
+import ProductService from "../../services/ProductService";
+import MemberService from "../../services/MemberService";
+import { serverApi } from "../../../lib/config";
 
 
 const actionDispatch = (dispatch: Dispatch) => ({
-    setRestaurant:   (data:Member) => dispatch(setRestaurant(data)),
+    setRestaurant:      (data:Member)  => dispatch(setRestaurant(data)),
     setChosenProduct:   (data:Product) => dispatch(setChosenProduct(data)),
    
 });
@@ -36,7 +40,30 @@ const restaurantRetriever = createSelector(
   );
 
 
+
+
 export default function ChosenProduct() {
+  const { setRestaurant, setChosenProduct} = actionDispatch(useDispatch());     //Slice
+  const { chosenProduct} = useSelector(chosenProductRetriever);                //Select
+  const { restaurant } = useSelector(restaurantRetriever);                    //Select
+  //____________________________________________Hooks____________________________________________
+  const { productId } = useParams<{productId:string}>();
+
+
+ /** _________________________________________useEffect_____________________________________*/
+ useEffect(() =>{
+  const product = new ProductService();
+  const member = new MemberService();
+
+  product.getProduct(productId).then((data) => setChosenProduct(data))
+                              .catch(err => console.log(err));
+
+  member.getRestaurant().then((data) => setRestaurant(data))
+                        .catch(err => console.log(err));
+  
+ }, []);
+
+if(!chosenProduct) return null;
   return (
     <div className={"chosen-product"}>
       <Box className={"title"}>Product Detail</Box>
@@ -49,11 +76,11 @@ export default function ChosenProduct() {
             modules={[FreeMode, Navigation, Thumbs]}
             className="swiper-area"
           >
-            {["/img/cutlet.webp", "/img/kebab-fresh.webp"].map(
-              (ele: string, index: number) => {
+            {chosenProduct?.productImages.map((ele: string, index: number) => {
+              const imagePath = `${serverApi}/${ele}`;
                 return (
                   <SwiperSlide key={index}>
-                    <img className="slider-image" src={ele} />
+                    <img className="slider-image" src={imagePath} />
                   </SwiperSlide>
                 );
               }
@@ -62,22 +89,23 @@ export default function ChosenProduct() {
         </Stack>
         <Stack className={"chosen-product-info"}>
           <Box className={"info-box"}>
-            <strong className={"product-name"}>Kebab</strong>
-            <span className={"resto-name"}>Burak</span>
+            <strong className={"product-name"}>{chosenProduct?.productName}</strong>
+            <span className={"resto-name"}>{restaurant?.memberNick}</span>
+            <span className={"resto-name"}>{restaurant?.memberPhone}</span>
             <Box className={"rating-box"}>
               <Rating name="half-rating" defaultValue={2.5} precision={0.5} />
               <div className={"evaluation-box"}>
                 <div className={"product-view"}>
                   <RemoveRedEyeIcon sx={{ mr: "10px" }} />
-                  <span>20</span>
+                  <span>{chosenProduct?.productView}</span>
                 </div>
               </div>
             </Box>
-            <p className={"product-desc"}>Our best product</p>
+            <p className={"product-desc"}>{chosenProduct?.productDesc ? chosenProduct?.productDesc : "No description"}</p>
             <Divider height="1" width="100%" bg="#000000" />
             <div className={"product-price"}>
               <span>Price:</span>
-              <span>$12</span>
+              <span>${chosenProduct?.productPrice}</span>
             </div>
             <div className={"button-box"}>
               <Button variant="contained">Add To Basket</Button>
