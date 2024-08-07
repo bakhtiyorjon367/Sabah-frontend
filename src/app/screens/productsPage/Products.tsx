@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {Box, Button, Card, Container, Stack} from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import MonetizationOnIcon  from "@mui/icons-material/MonetizationOn";
@@ -8,40 +8,45 @@ import Pagination from "@mui/material/Pagination";
 import PaginationItem from "@mui/material/PaginationItem";
 import ArrowBackIcon  from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon  from "@mui/icons-material/ArrowForward";
-
-
-import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { createSelector, Dispatch } from "@reduxjs/toolkit";
-import { Product } from "../../../lib/types/product";
+import { Dispatch } from "@reduxjs/toolkit";
 import { setProducts } from "./slice";
+import { createSelector } from "reselect";
 import { retrieveProducts } from "./selector";
+import { Product } from "../../../lib/types/product";
+import   ProductService from "../../services/ProductService";
+import { ProductCollection } from "../../../lib/enums/product.enum";
+import { serverApi } from "../../../lib/config";
+//____________________________________________________________________________________________
 
-
+/**   Slice  */
 const actionDispatch = (dispatch: Dispatch) => ({
     setProducts:   (data:Product[]) => dispatch(setProducts(data)),
-   
 });
-
+/**   Select */
 const productsRetriever = createSelector(
     retrieveProducts,
    (products) => ({products})
   );
-
-
-
-const products = [
-    { productName: "Cutlet",imagePath: "/img/cutlet.webp" },
-    { productName: "Kebab",imagePath: "/img/kebab.webp" },
-    { productName: "Kebab",imagePath: "/img/kebab.webp" },
-    { productName: "Lavash",imagePath: "/img/lavash.webp" },
-    { productName: "Lavash",imagePath: "/img/lavash.webp" },
-    { productName: "Cutlet",imagePath: "/img/cutlet.webp" },
-    { productName: "Kebab",imagePath: "/img/kebab.webp" },
-    { productName: "Kebab",imagePath: "/img/kebab.webp" },
-];
-
+//____________________________________________________________________________________________
 export default function Products(){
+    const {setProducts} =actionDispatch(useDispatch());
+    const {products} = useSelector(productsRetriever);
+
+    useEffect(()=>{
+        const product = new ProductService();
+        product.getProducts({
+            page:1,
+            limit:8,
+            order:"createdAt",
+            productCollection:ProductCollection.DISH,
+            search:""
+        }).then((data) => {
+            setProducts(data);
+        }).catch(err => console.log(err));
+
+    },[])
+
     return (
         <div className={"products"}>
             <Container >
@@ -105,31 +110,26 @@ export default function Products(){
 
                         <Stack className={"product-wrapper"}>
                            {products.length !== 0 ? (
-                            products.map((product, index) => {
+                            products.map((product:Product) => {
+                                const imagePath = `${serverApi}/${product.productImages[0]}`;
+                                const sizeVolume = product.productCollection === ProductCollection.DRINK
+                                                        ? product.productVolume + " liter" 
+                                                        : product.productSize   + " size"; 
                                     return (
-                                        <Stack key={index} className={"product-card"}>
-                                            <Stack className={"product-img"} sx={{backgroundImage: `url(${product.imagePath})`}}>
-                                                    
-                                                <div className={"product-sale"}> Normal size </div>
+                                        <Stack key={product._id} className={"product-card"}>
+                                            <Stack className={"product-img"} sx={{backgroundImage: `url(${imagePath })`}}>
+                                                <div className={"product-sale"}> {sizeVolume} </div>
                                                
-                                                    
-                                                        <Button className={"shop-btn"} >
-                                                            <img src="/icons/shopping-cart.svg"
-                                                            />
-                                                        </Button>
+                                                <Button className={"shop-btn"} >
+                                                    <img src="/icons/shopping-cart.svg" alt="noImage"/>
+                                                </Button>
                                                    
-                                                   
-                                                        <Button className={"view-btn"}  >
-                                                            <Badge badgeContent={1} color="secondary">
-                                                                <RemoveRedEyeIcon
-                                                                    sx={{color: 20 ? "gray" : "white "}}
-                                                                />
-                                                            </Badge>
-                                                        </Button>
-                                                    
-                                                
-                                                
-                                            
+                                                 <Button className={"view-btn"} >
+                                                    <Badge badgeContent={product.productView} color="secondary">
+                                                        <RemoveRedEyeIcon
+                                                            sx={{color: product.productView === 0 ? "gray" : "white "}} />
+                                                    </Badge>
+                                                </Button>
                                             </Stack>
                                             <Box className={"product-desc"}>
                                                 <span className={"product-title"}>
@@ -137,7 +137,7 @@ export default function Products(){
                                                 </span>
                                                 <div className={"product-desc"}>
                                                     <MonetizationOnIcon/>
-                                                    {12}
+                                                    {product.productPrice}
                                                 </div>
                                             </Box>
                                         </Stack>
@@ -174,16 +174,16 @@ export default function Products(){
                     <Box className={"category-title"}> Our Family Brands </Box>
                     <Stack className={"brand-list"}>
                         <Box className={"review-box"}>
-                            <img src={"img/gurme.webp"} />
+                            <img src={"img/gurme.webp"} alt="noImage" />
                         </Box>
                         <Box className={"review-box"}>
-                            <img src={"img/seafood.webp"} />
+                            <img src={"img/seafood.webp"} alt="noImage"/>
                         </Box>
                         <Box className={"review-box"}>
-                            <img src={"img/sweets.webp"} style={{}} />
+                            <img src={"img/sweets.webp"} alt="noImage" style={{}} />
                         </Box>
                         <Box className={"review-box"}>
-                            <img src={"img/doner.webp"} />
+                            <img src={"img/doner.webp"} alt="noImage"/>
                         </Box>
                     </Stack>
                 </Container>
@@ -196,8 +196,7 @@ export default function Products(){
                         <iframe
                             style={{marginTop: "60px"}}
                             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3965.4074383000003!2d90.38973931454994!3d23.750202985000004!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755b9f9d6f6d9c1%3A0x5c3a5c0f0d7f8d6!2sDhaka%20City%20College!5e0!3m2!1sen!2sbd!4v1660915272494!5m2!1sen!2sbd"
-                            // src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2996.363734762081!2d69.2267250514616!3d41.322703307863044!2m3"
-                             width="1320"
+                              width="1320"
                             height="500"
                             referrerPolicy="no-referrer-when-downgrade"
                         ></iframe>
