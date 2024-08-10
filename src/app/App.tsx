@@ -64,10 +64,11 @@ function App() {
         <Footer/>
 
         <AuthenticationModal
-        signupOpen={signupOpen}
-        loginOpen={loginOpen}
-        handleSignupClose={handleSignupClose}
-        handleLoginClose={handleLoginClose} />
+          signupOpen={signupOpen}
+          loginOpen={loginOpen}
+          handleSignupClose={handleSignupClose}
+          handleLoginClose={handleLoginClose} 
+        />
      </>
 );
 }
