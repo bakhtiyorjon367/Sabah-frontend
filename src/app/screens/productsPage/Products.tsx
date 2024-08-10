@@ -201,7 +201,7 @@ export default function Products(props:ProductsProps){//________________________
                                                         price:product.productPrice,
                                                         image:product.productImages[0],
                                                         quantity:1
-                                                    })
+                                                    });
                                                     e.stopPropagation();
                                                 }}>
                                                     <img src="/icons/shopping-cart.svg" alt="noImage"/>
