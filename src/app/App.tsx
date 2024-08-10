@@ -12,11 +12,20 @@ import '../css/navbar.css';
 import '../css/footer.css';
 import HelpPage  from './screens/helpPage';
 import useBasket from './hooks/useBasket';
+import AuthenticationModal from './components/auth';
 
 
 function App() {
   const location = useLocation();
   const {onAdd, cartItems, onRemove, onDelete, onDeleteAll } = useBasket();
+  const [signupOpen, setSignupOpen] = useState<boolean>(false);
+  const [loginOpen, setLoginOpen] = useState<boolean>(false);
+
+
+
+  /** Handler */
+  const handleSignupClose = () => setSignupOpen(false);
+  const handleLoginupClose = () => setLoginOpen(false);
   return (
 
     <>
@@ -48,6 +57,12 @@ function App() {
             </Route>
         </Switch>
         <Footer/>
+
+        <AuthenticationModal
+        signupOpen={signupOpen}
+        loginOpen={loginOpen}
+        handleSignupClose={handleSignupClose}
+        handleLoginClose={handleLoginupClose} />
      </>
 );
 }
