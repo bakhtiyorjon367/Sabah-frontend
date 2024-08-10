@@ -25,7 +25,7 @@ function App() {
 
   /** Handler */
   const handleSignupClose = () => setSignupOpen(false);
-  const handleLoginupClose = () => setLoginOpen(false);
+  const handleLoginClose = () => setLoginOpen(false);
   return (
 
     <>
@@ -33,12 +33,17 @@ function App() {
                                                  onAdd={onAdd} 
                                                  onRemove={onRemove} 
                                                  onDelete={onDelete} 
-                                                 onDeleteAll={onDeleteAll} /> 
+                                                 onDeleteAll={onDeleteAll} 
+                                                 setSignupOpen={setSignupOpen}
+                                                 setLoginOpen={setLoginOpen}/> 
                                     : <OtherNavbar cartItems={cartItems} 
                                                     onAdd={onAdd} 
                                                     onRemove={onRemove} 
                                                     onDelete={onDelete} 
-                                                    onDeleteAll={onDeleteAll}/>}
+                                                    onDeleteAll={onDeleteAll}
+                                                    setSignupOpen={setSignupOpen}
+                                                    setLoginOpen={setLoginOpen}/>
+          }
         <Switch>
             <Route path="/products">
               <ProductsPage onAdd={onAdd}/>
@@ -62,7 +67,7 @@ function App() {
         signupOpen={signupOpen}
         loginOpen={loginOpen}
         handleSignupClose={handleSignupClose}
-        handleLoginClose={handleLoginupClose} />
+        handleLoginClose={handleLoginClose} />
      </>
 );
 }

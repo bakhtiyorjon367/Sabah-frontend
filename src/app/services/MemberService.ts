@@ -1,7 +1,7 @@
 import axios from "axios";
 import { serverApi } from "../../lib/config";
 import { Product, ProductInquiry } from "../../lib/types/product";
-import { Member } from "../../lib/types/member";
+import { Member, MemberInput } from "../../lib/types/member";
 
 
 class MemberService {
@@ -32,9 +32,27 @@ class MemberService {
             const restaurant:Member = result.data
             return restaurant;
         }catch(err){
-            console.log("Error, getTopUsers ",err);
+            console.log("Error, getRestaurant ",err);
             throw err;
         }
+    }
+
+    public async signup(input: MemberInput): Promise<Member>{
+        try{
+            const url = this.path + "/member/signup";
+            const result = await axios.post(url,input, {withCredentials: true});
+            console.log(result);
+            
+            const member:Member = result.data.member;
+            console.log("member", member);
+            localStorage.setItem("memberData", JSON.stringify(member));
+
+            return member;
+        }catch(err){
+            console.log("Error, signup ",err);
+            throw err;
+        }
+
     }
 }
 export default MemberService;  // default export
