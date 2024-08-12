@@ -7,9 +7,6 @@ import  UserPage  from './screens/userPage';
 import  HomeNavbar  from './components/headers/HomeNavbar';
 import  OtherNavbar  from './components/headers/OtherNavbar';
 import Footer  from './components/footer';
-import '../css/app.css';
-import '../css/navbar.css';
-import '../css/footer.css';
 import HelpPage  from './screens/helpPage';
 import useBasket from './hooks/useBasket';
 import AuthenticationModal from './components/auth';
@@ -18,6 +15,9 @@ import { sweetErrorHandling, sweetTopSuccessAlert } from '../lib/sweetAlert';
 import { Messages } from '../lib/config';
 import MemberService from './services/MemberService';
 import { useGlobals } from './hooks/useGlobals';
+import '../css/app.css';
+import '../css/navbar.css';
+import '../css/footer.css';
 
 
 function App() {
@@ -27,6 +27,7 @@ function App() {
   const [signupOpen, setSignupOpen] = useState<boolean>(false);
   const [loginOpen, setLoginOpen] = useState<boolean>(false);
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
+//_____________________________________________________________________________________
 
 
 
@@ -46,7 +47,8 @@ function App() {
       console.error(err);
       sweetErrorHandling(Messages.error1);
     }
-  }
+  }//_____________________________________________________________________________________
+
 
   
   return (

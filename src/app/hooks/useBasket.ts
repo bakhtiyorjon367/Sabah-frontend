@@ -3,10 +3,10 @@ import { CartItem } from "../../lib/types/search";
 
 const useBasket = () => {
 
-    const cartJson: string | null = localStorage.getItem("cartData");
-    const currentCart = cartJson ? JSON.parse(cartJson) : [];
-    const [cartItems, setCartItems] = useState<CartItem[]>(currentCart);
-  
+  const cartJson: string | null = localStorage.getItem("cartData");
+  const currentCart = cartJson ? JSON.parse(cartJson) : [];
+  const [cartItems, setCartItems] = useState<CartItem[]>(currentCart);
+  //_____________________________________________________________________________________
 
   const onAdd = (input:CartItem) => {
     const exist : any  = cartItems.find((item : CartItem) => item._id === input._id );
@@ -23,7 +23,7 @@ const useBasket = () => {
       setCartItems(cartUpdate);
       localStorage.setItem("cartData", JSON.stringify(cartUpdate));
     }
-  };
+  };//_____________________________________________________________________________________
 
   const onRemove =(input: CartItem) =>{
     const exist:any = cartItems.find((item:CartItem) => 
@@ -43,7 +43,7 @@ const useBasket = () => {
     setCartItems(cartUpdate);
     localStorage.setItem("cartData", JSON.stringify(cartUpdate));
     }
-  };
+  };//_____________________________________________________________________________________
 
 
   const onDelete =(input: CartItem) => {
@@ -52,13 +52,13 @@ const useBasket = () => {
     );
     setCartItems(cartUpdate);
     localStorage.setItem("cartData", JSON.stringify(cartUpdate));
-  };
+  };//_____________________________________________________________________________________
 
 
   const onDeleteAll =() => {
     setCartItems([]);
     localStorage.removeItem("caetData");
-  };
+  };//_____________________________________________________________________________________
 
 
 

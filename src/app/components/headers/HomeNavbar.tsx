@@ -34,7 +34,7 @@ export default function HomeNavbar(props: HomeNavbarProps){
             <Stack className="menu">
                 <Box>
                     <NavLink to="/">
-                        <img className="brand-logo" src="/icons/burak.svg" />
+                        <img className="brand-logo" src="/icons/burak.svg" alt="no-image" />
                     </NavLink>
                 </Box>
                 <Stack className="links">
@@ -87,7 +87,7 @@ export default function HomeNavbar(props: HomeNavbarProps){
                                     : "/icons/default-user.svg"}
                                 aria-haspopup={"true"}
                                 onClick={handleLogoutClick}
-                            />
+                                alt="no-image"/>
                         )}
 
                         <Menu

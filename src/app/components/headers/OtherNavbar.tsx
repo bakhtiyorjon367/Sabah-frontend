@@ -18,7 +18,7 @@ interface OtherNavbarProps{
     anchorEl: HTMLElement | null;
     handleCloseLogout: () => void;
     handleLogoutRequest: () => void;
-}
+};
 
 export default function OtherNavbar(props:OtherNavbarProps ){
     const { cartItems, onAdd,onRemove, onDelete, onDeleteAll, setSignupOpen, setLoginOpen,handleLogoutClick, anchorEl, handleCloseLogout, handleLogoutRequest} = props;
@@ -30,7 +30,7 @@ export default function OtherNavbar(props:OtherNavbarProps ){
             <Stack className="menu">
                 <Box>
                     <NavLink to="/">
-                        <img className="brand-logo" src="/icons/burak.svg" />
+                        <img className="brand-logo" src="/icons/burak.svg" alt="no-image" />
                     </NavLink>
                 </Box>
                 <Stack className="links">
@@ -81,6 +81,7 @@ export default function OtherNavbar(props:OtherNavbarProps ){
                                     : "/icons/default-user.svg"}
                                 aria-haspopup={"true"}
                                 onClick={handleLogoutClick}
+                                alt="no-image"
                             />
                         )}
 

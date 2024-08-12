@@ -1,6 +1,5 @@
 import axios from "axios";
 import { serverApi } from "../../lib/config";
-import { Product, ProductInquiry } from "../../lib/types/product";
 import { LoginInput, Member, MemberInput } from "../../lib/types/member";
 
 
@@ -21,8 +20,7 @@ class MemberService {
             console.log("Error, getTopUsers ",err);
             throw err;
         }
-    }
-
+    }//_____________________________________________________________________________________
 
     public async getRestaurant():Promise<Member>{
         try{
@@ -35,7 +33,7 @@ class MemberService {
             console.log("Error, getRestaurant ",err);
             throw err;
         }
-    }
+    }//_____________________________________________________________________________________
 
     public async signup(input: MemberInput): Promise<Member>{
         try{
@@ -52,29 +50,24 @@ class MemberService {
             console.log("Error, signup ",err);
             throw err;
         }
-
-    }
-
+    }//_____________________________________________________________________________________
 
     public async login(input: LoginInput): Promise<Member>{
         try{
             const url = this.path + "/member/login";
-            const result = await axios.post(url,input, {withCredentials: true});
+            const result = await axios.post( url, input, {withCredentials: true});
             console.log("result ",result);
             
             const member:Member = result.data.member;
             console.log("member", member);
 
             localStorage.setItem("memberData", JSON.stringify(member));
-
             return member;
         }catch(err){
             console.log("Error, login ",err);
             throw err;
         }
-
-    }
-
+    }//_____________________________________________________________________________________
 
     public async logout(): Promise<void>{
         try{
@@ -88,7 +81,9 @@ class MemberService {
             console.log("Error, logout ",err);
             throw err;
         }
+    }//_____________________________________________________________________________________
 
-    }
+
+
 }
 export default MemberService;  // default export

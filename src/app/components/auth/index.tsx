@@ -46,8 +46,8 @@ interface AuthenticationModalProps {
 export default function AuthenticationModal(props: AuthenticationModalProps) {
   const { signupOpen, loginOpen, handleSignupClose, handleLoginClose } = props;
   const classes = useStyles();
-  const [memberNick, setMemberNick] =useState<string>("");
-  const [memberPhone, setMemberPhone] =useState<string>("");
+  const [memberNick, setMemberNick] =   useState<string>("");
+  const [memberPhone, setMemberPhone] = useState<string>("");
   const [memberPassword, setMemberPassword] =useState<string>("");
   const {setAuthMember} = useGlobals();
 
@@ -56,27 +56,25 @@ export default function AuthenticationModal(props: AuthenticationModalProps) {
   const handleUsername = (e:T) => { 
     setMemberNick(e.target.value);
   }
-
   const handlePhone = (e:T) => { 
     setMemberPhone(e.target.value);
   }
-
   const handlePassword = (e:T) => { 
     setMemberPassword(e.target.value);
-  };
+  };//_____________________________________________________________________________________
 
   const handlePasswordKeyDown = (e:T) => {
     if (e.key === "Enter" && signupOpen) {
       handleSignupRequest().then();
     }else if(e.key === "Enter" && loginOpen){
-      handleLoginRequest().then();
-
+      handleLoginRequest().then()
     }
+  }//_____________________________________________________________________________________
 
-  }
   const handleSignupRequest= async () => { 
-    try{
-      const isFullfill = memberNick !== "" &&  memberPassword !== "" &&  memberPhone !== "";
+    try{ 
+      const isFullfill =
+        memberNick !== "" && memberPhone !== "" && memberPassword !== "";
       if(!isFullfill) throw new Error(Messages.error3);
 
       const signupInput: MemberInput = {
@@ -87,20 +85,20 @@ export default function AuthenticationModal(props: AuthenticationModalProps) {
       const member = new MemberService();
       const result = await member.signup(signupInput);
       
-      //Saving Authinticated user
-      setAuthMember(result);
+      setAuthMember(result); //Saving Authinticated user
       handleSignupClose();
     }catch(err){ 
       console.log(err);
       handleSignupClose();
       sweetErrorHandling(err).then()
     }
-  }
+  }//_____________________________________________________________________________________
+
 
   const handleLoginRequest= async () => { 
     try{
-      const isFullfill = memberNick !== "" &&   memberPassword !== "" ;
-      if(!isFullfill)throw new Error(Messages.error3);
+      const isFullfill = memberNick === "" && memberPassword === "" ;
+      if(isFullfill)throw new Error(Messages.error3);
   
       const loginInput: LoginInput = {
         memberNick:memberNick,
@@ -109,15 +107,16 @@ export default function AuthenticationModal(props: AuthenticationModalProps) {
       const member = new MemberService();
       const result = await member.login(loginInput);
       
-       //Saving Authinticated user
-       setAuthMember(result);
+       
+      setAuthMember(result); //Saving Authinticated user
       handleLoginClose();
-    }catch(err){ 
+    } catch(err){ 
       console.log(err);
       handleLoginClose();
       sweetErrorHandling(err).then()
     }
-  }
+  }//_____________________________________________________________________________________
+
   return (
     <div>
       <Modal
