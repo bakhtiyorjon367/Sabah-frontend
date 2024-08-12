@@ -14,7 +14,7 @@ export const retrieveProcessOrders = createSelector (
     (OrdersPage) => OrdersPage.processOrders
 );
 
-export const FinishedOrders = createSelector (
+export const retrieveFinishedOrders = createSelector (
 
     (store: AppRootState)    => store.ordersPage,
     (OrdersPage) => OrdersPage.finishedOrders

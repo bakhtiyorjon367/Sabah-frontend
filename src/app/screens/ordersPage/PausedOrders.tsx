@@ -20,13 +20,13 @@ const pausedOrdersRetriever = createSelector(
 
 export default function PausedOrders(){
     const { pausedOrders } = useSelector(pausedOrdersRetriever)
-    const arr:any =[1,2];
+    
+    /**  HANDLERS  */
     return (
 
         <TabPanel value={"1"}>
             <Stack>
-                {pausedOrders.length != 0 ? ( 
-                    pausedOrders?.map((order:Order) => {
+                {pausedOrders?.map((order:Order) => {
                         return (
                             <Box key={order._id} className={"order-main-box"}>
                                 <Box className={"order-box-scroll"}>
@@ -83,17 +83,7 @@ export default function PausedOrders(){
                             </Box>
     
                         );
-                    })
-                 ) : (  
-                    <Box display={"flex"} flexDirection={"row"} justifyContent={"center"}>
-                        <img    
-                            src={"/icons/noimage-list.svg"}
-                            style={{width: 300, height: 300}}
-                        />
-                    </Box>
-                )} 
-                
-
+                    })}
                 {!pausedOrders || (pausedOrders.length === 0 && (
                     <Box display={"flex"} flexDirection={"row"} justifyContent={"center"}>
                         <img    
