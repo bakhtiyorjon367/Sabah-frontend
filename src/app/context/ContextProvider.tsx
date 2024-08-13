@@ -4,6 +4,8 @@ import { Member } from "../../lib/types/member";
 import { GlobalContext } from "../hooks/useGlobals";
 
 const ContextProvider : React.FC<{children: ReactNode}> = ({children}) => {
+    
+    
     const cookies = new Cookies();
     if(!cookies.get("accessToken")) localStorage.removeItem("memberData");
 
@@ -17,14 +19,10 @@ const ContextProvider : React.FC<{children: ReactNode}> = ({children}) => {
 
     
     
+
     console.log("_______verify_______")
     return (<GlobalContext.Provider value={{authMember, setAuthMember,orderBuilder,setOrderBuilder}}>{children}</GlobalContext.Provider>
     );
-    
-
-
-
-
 };
 
 export default ContextProvider;
