@@ -1,15 +1,17 @@
-import React from "react";
 import TabPanel  from "@mui/lab/TabPanel";
 import  Button from "@mui/material/Button"
 import { Box, Stack } from "@mui/material";
 import { retrievePausedOrders } from "./selector";
 import { createSelector } from "reselect";
 import { useSelector } from "react-redux";
-import { Order, OrderItem } from "../../../lib/types/order";
+import { Order, OrderItem, OrderUpdateInput } from "../../../lib/types/order";
 import { Product } from "../../../lib/types/product";
-import { serverApi } from "../../../lib/config";
-
-
+import { Messages, serverApi } from "../../../lib/config";
+import { sweetErrorHandling } from "../../../lib/sweetAlert";
+import { OrderStatus } from "../../../lib/enums/order.enum";
+import { useGlobals } from "../../hooks/useGlobals";
+import OrderService from "../../services/OrderService";
+import { T } from "../../../lib/types/common";
 
 //REDUX SELECTOR 
 const pausedOrdersRetriever = createSelector(
@@ -17,11 +19,62 @@ const pausedOrdersRetriever = createSelector(
    (pausedOrders) => ({pausedOrders})
 );
 
-
-export default function PausedOrders(){
+interface PausedOrdersProps {
+    setValue: (input: string) => void;
+}
+export default function PausedOrders(props: PausedOrdersProps){
+    const {setValue} = props;
+    const {authMember, setOrderBuilder} = useGlobals();
     const { pausedOrders } = useSelector(pausedOrdersRetriever)
     
     /**  HANDLERS  */
+
+    const deleteOrderHandler = async(e:T) => {
+        try{
+            if(!authMember) throw new Error(Messages.error2);
+            const orderId = e.target.value;
+            const input:OrderUpdateInput = {
+                orderId:orderId,
+                orderStatus:OrderStatus.DELETE,
+            };
+
+            const confirmation = window.confirm("Do you want to delete order?");
+            if(confirmation) {
+                const order = new OrderService();
+                await order.updateOrder(input);
+                setOrderBuilder(new Date());
+            }
+        }catch(err){
+            console.log(err);
+            sweetErrorHandling(err).then();
+        }
+    };//_________________________________________________________________________________
+
+    const processOrderHandler = async(e:T) => {
+        try{
+            if(!authMember) throw new Error(Messages.error2);
+            // PAYMENT PROCESS
+
+            const orderId = e.target.value;
+            const input:OrderUpdateInput = {
+                orderId:orderId,
+                orderStatus:OrderStatus.PROCESS,
+            };
+
+            const confirmation = window.confirm("Do you want to procees with payment?");
+            if(confirmation) {
+                const order = new OrderService();
+                await order.updateOrder(input);
+                 // PROCESS ORDER
+                setValue("2");
+                setOrderBuilder(new Date());
+            }
+        }catch(err){
+            console.log(err);
+            sweetErrorHandling(err).then();
+        }
+    };//_________________________________________________________________________________
+    
     return (
 
         <TabPanel value={"1"}>
@@ -66,16 +119,20 @@ export default function PausedOrders(){
                                     </Box>
     
                                     <Button 
+                                        value={order._id}
                                         variant="contained"
                                         color="secondary"
                                         className={"cancel-button"}
+                                        onClick={deleteOrderHandler}
                                     >
                                         Cancel
                                     </Button>
     
                                     <Button 
+                                        value={order._id}
                                         variant="contained"
                                         className={"pay-button"}
+                                        onClick={processOrderHandler}
                                     >
                                         Payment
                                     </Button>
