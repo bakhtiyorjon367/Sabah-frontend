@@ -15,8 +15,8 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createSelector, Dispatch } from "@reduxjs/toolkit";
 import { Product } from "../../../lib/types/product";
-import {  setChosenProduct, setRestaurant } from "./slice";
-import { retrieveChosenProduct, retrieveProducts, retrieveRestaurant } from "./selector";
+import {  setChosenProduct, setAdmin } from "./slice";
+import { retrieveChosenProduct, retrieveAdmin } from "./selector";
 import { Member } from "../../../lib/types/member";
 import { useParams } from "react-router-dom";
 import ProductService from "../../services/ProductService";
@@ -26,7 +26,7 @@ import { CartItem } from "../../../lib/types/search";
 
 
 const actionDispatch = (dispatch: Dispatch) => ({
-    setRestaurant:      (data:Member)  => dispatch(setRestaurant(data)),
+    setAdmin:      (data:Member)  => dispatch(setAdmin(data)),
     setChosenProduct:   (data:Product) => dispatch(setChosenProduct(data)),
    
 });
@@ -35,9 +35,9 @@ const chosenProductRetriever = createSelector(
     retrieveChosenProduct,
    (chosenProduct) => ({chosenProduct})
   );
-const restaurantRetriever = createSelector(
-    retrieveRestaurant,
-   (restaurant) => ({restaurant})
+const adminRetriever = createSelector(
+    retrieveAdmin,
+   (admin) => ({admin})
   );
 
 
@@ -47,9 +47,9 @@ const restaurantRetriever = createSelector(
 }
 export default function ChosenProduct(props:ChosenProductProps ) {
   const {onAdd} = props;
-  const { setRestaurant, setChosenProduct} = actionDispatch(useDispatch());     //Slice
+  const { setAdmin, setChosenProduct} = actionDispatch(useDispatch());     //Slice
   const { chosenProduct} = useSelector(chosenProductRetriever);                //Select
-  const { restaurant } = useSelector(restaurantRetriever);                    //Select
+  const { admin } = useSelector(adminRetriever);                    //Select
   //____________________________________________Hooks____________________________________________
   const { productId } = useParams<{productId:string}>();
 
@@ -62,7 +62,7 @@ export default function ChosenProduct(props:ChosenProductProps ) {
   product.getProduct(productId).then((data) => setChosenProduct(data))
                               .catch(err => console.log(err));
 
-  member.getRestaurant().then((data) => setRestaurant(data))
+  member.getAdmin().then((data) => setAdmin(data))
                         .catch(err => console.log(err));
   
  }, []);
@@ -84,7 +84,7 @@ if(!chosenProduct) return null;
               const imagePath = `${serverApi}/${ele}`;
                 return (
                   <SwiperSlide key={index}>
-                    <img className="slider-image" src={imagePath} />
+                    <img className="slider-image" src={imagePath} alt="no-image"/>
                   </SwiperSlide>
                 );
               }
@@ -94,8 +94,8 @@ if(!chosenProduct) return null;
         <Stack className={"chosen-product-info"}>
           <Box className={"info-box"}>
             <strong className={"product-name"}>{chosenProduct?.productName}</strong>
-            <span className={"resto-name"}>{restaurant?.memberNick}</span>
-            <span className={"resto-name"}>{restaurant?.memberPhone}</span>
+            <span className={"resto-name"}>{admin?.memberNick}</span>
+            <span className={"resto-name"}>{admin?.memberPhone}</span>
             <Box className={"rating-box"}>
               <Rating name="half-rating" defaultValue={2.5} precision={0.5} />
               <div className={"evaluation-box"}>
@@ -109,13 +109,14 @@ if(!chosenProduct) return null;
             <Divider height="1" width="100%" bg="#000000" />
             <div className={"product-price"}>
               <span>Price:</span>
-              <span>${chosenProduct?.productPrice}</span>
+              <span>${chosenProduct?.salePrice !== 0 ? (chosenProduct?.productPrice ?? 0) - (chosenProduct?.salePrice ?? 0) : (chosenProduct?.productPrice ?? 0)}</span>
             </div>
             <div className={"button-box"}>
               <Button variant="contained" onClick={(e) =>{ onAdd({
                                                         _id:chosenProduct._id,
                                                         name:chosenProduct.productName,
                                                         price:chosenProduct.productPrice,
+                                                        salePrice:chosenProduct.salePrice,
                                                         image:chosenProduct.productImages[0],
                                                         quantity:1
                                                     });

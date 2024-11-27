@@ -2,7 +2,6 @@ import { createTheme } from '@mui/material/styles';
 import { common } from '@mui/material/colors';
 import shadow from './shadow';
 import typography from './typography';
-import { maxWidth } from '@mui/system';
 
 /**
  * LIGHT THEME (DEFAULT)
@@ -55,7 +54,7 @@ theme = createTheme(theme, {
 			styleOverrides: {
 				maxWidthLg: {
 					[theme.breakpoints.up('lg')]: {
-						maxWidth: '1300px',
+						maxWidth: '1700px',
 					},
 				},
 			},

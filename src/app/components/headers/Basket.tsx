@@ -24,9 +24,11 @@ export default function Basket(props : BasketProps ) {
   const { cartItems, onAdd,onRemove, onDelete, onDeleteAll } = props;
   const {authMember, setOrderBuilder} = useGlobals() ;
   const history = useHistory();
-  const itemPrice:number = cartItems.reduce((a:number, c:CartItem) => a+c.quantity*c.price, 
-                                    0
-                                  );
+  const itemPrice:number = cartItems.reduce((a:number, c:CartItem) => {
+    const salePrice = c.salePrice || 0;
+    const discountedPrice = c.price - salePrice;
+    return a + discountedPrice * c.quantity;
+  }, 0);
   const shippingCost = itemPrice < 100 ? 5 : 0;
   const totalPrice =( itemPrice+shippingCost).toFixed();
 
@@ -69,9 +71,12 @@ export default function Basket(props : BasketProps ) {
         aria-haspopup="true"
         aria-expanded={open ? "true" : undefined}
         onClick={handleClick}
+       
+        style={{background:'gray'}}
       >
-        <Badge badgeContent={cartItems.length} color="secondary">
-          <img src={"/icons/shopping-cart.svg"} />
+        <Badge badgeContent={cartItems.length} color="secondary"  style={{color:'black'}}>
+
+          <img src={"/icons/shopping-cart.svg"}  style={{color:'black'}} />
         </Badge>
       </IconButton>
       <Menu
@@ -79,7 +84,6 @@ export default function Basket(props : BasketProps ) {
         id="account-menu"
         open={open}
         onClose={handleClose}
-        // onClick={handleClose}
         PaperProps={{
           elevation: 0,
           sx: {
@@ -130,6 +134,9 @@ export default function Basket(props : BasketProps ) {
             <Box className={"orders-wrapper"}>
               {cartItems.map((item:CartItem) => {
                 const imagePath = `${serverApi}/${item.image}`
+                const salePrice = item.salePrice || 0;
+                const originalPrice = item.price;
+                const discountedPrice = originalPrice - salePrice;
                 return (
                   <Box className={"basket-info-box"} key={item._id}>
                     <div className={"cancel-btn"}>
@@ -137,7 +144,13 @@ export default function Basket(props : BasketProps ) {
                     </div>
                     <img src={imagePath} className={"product-img"} />
                     <span className={"product-name"}>{item.name}</span>
-                    <p className={"product-price"}>${item.price} x {item.quantity}</p>
+                    {salePrice > 0 ? (
+                      <p className={"product-price"}>
+                        <span style={{ color: 'red' }}>${discountedPrice} x {item.quantity}</span>
+                      </p>
+                    ) : (
+                      <p className={"product-price"} style={{ color: 'black' }}>${originalPrice} x {item.quantity}</p>
+                    )}
                     <Box sx={{ minWidth: 120 }}>
                       <div className="col-2">
                         <button className="remove" onClick={() =>  onRemove(item)}>-</button>{" "}
@@ -145,15 +158,15 @@ export default function Basket(props : BasketProps ) {
                       </div>
                     </Box>
                   </Box>
-              );
-              })};
+                )
+              })}
               
             </Box>
           </Box>
           {cartItems.length !== 0 ?(
             <Box className={"basket-order"}>
             <span className={"price"}>Total: ${totalPrice} ({itemPrice} + {shippingCost})</span>
-            <Button onClick={proceedOrderHandler} startIcon={<ShoppingCartIcon />} variant={"contained"} >
+            <Button onClick={proceedOrderHandler} startIcon={<ShoppingCartIcon/>} variant={"contained"} >
               Order
             </Button>
           </Box>

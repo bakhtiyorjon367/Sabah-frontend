@@ -2,12 +2,13 @@ import React from "react";
 import { Box, Container, Stack } from "@mui/material";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { Margin, Sanitizer } from "@mui/icons-material";
 
 const Footers = styled.div`
   width: 100%;
-  height: 590px;
+  height: 560px;
   display: flex;
-  background: #343434;
+  background: black;
   background-size: cover;
 `;
 
@@ -17,15 +18,14 @@ export default function Footer() {
   return (
     <Footers>
       <Container>
-        <Stack flexDirection={"row"} sx={{ mt: "94px" }}>
+        <Stack flexDirection={"row"} sx={{ mt: "64px" }}>
           <Stack flexDirection={"column"} style={{ width: "340px" }}>
-            <Box>
-              <img width={"100px"} src={"/icons/burak.svg"} />
+            <Box className={"home-title"}>
+              <h1 style={{ color: "#fff", fontSize: "24px", fontFamily:"Poppins"}}>Sabah</h1>
             </Box>
             <Box className={"foot-desc-txt"}>
-              Focusing on the gourmet Turkish breakfast as well as the youth
-              society, CZN Burak Gurme aims to bring Turkish cuisine back. CZN
-              Burak Gurme creates an illusion with its cuisine.
+              We believe that beauty thrives in diversity and discovery.
+              Our purpose is to expand the way the world sees beauty by empowering the extraordinary in each of us.
             </Box>
             <Box className="sns-context">
               <img src={"/icons/facebook.svg"} />
@@ -37,7 +37,7 @@ export default function Footer() {
           <Stack sx={{ ml: "288px" }} flexDirection={"row"}>
             <Stack>
               <Box>
-                <Box className={"foot-category-title"}>Bo'limlar</Box>
+                <Box className={"foot-category-title"}>Categories</Box>
                 <Box className={"foot-category-link"}>
                   <Link to="/">Home</Link>
                   <Link to="/products">Products</Link>
@@ -65,11 +65,11 @@ export default function Footer() {
                   </Box>
                   <Box className={"find-us"}>
                     <span>E.</span>
-                    <div>devexuz@gmail.com</div>
+                    <div>sabah@gmail.com</div>
                   </Box>
                   <Box className={"find-us"}>
-                    <span>H.</span>
-                    <div>Visit 24 hours</div>
+                    <span>C.</span>
+                    <div>Contact 24 hours</div>
                   </Box>
                 </Box>
               </Box>

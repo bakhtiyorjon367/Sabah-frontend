@@ -22,7 +22,7 @@ class MemberService {
         }
     }//_____________________________________________________________________________________
 
-    public async getRestaurant():Promise<Member>{
+    public async getAdmin():Promise<Member>{
         try{
             const url = this.path + "/member/restaurant";
             const result = await axios.get(url);
@@ -30,7 +30,7 @@ class MemberService {
             const restaurant:Member = result.data
             return restaurant;
         }catch(err){
-            console.log("Error, getRestaurant ",err);
+            console.log("Error, getAdmin ",err);
             throw err;
         }
     }//_____________________________________________________________________________________
@@ -39,10 +39,8 @@ class MemberService {
         try{
             const url = this.path + "/member/signup";
             const result = await axios.post(url,input, {withCredentials: true});
-            console.log(result);
-            
+          
             const member:Member = result.data.member;
-            console.log("member", member);
             localStorage.setItem("memberData", JSON.stringify(member));
 
             return member;

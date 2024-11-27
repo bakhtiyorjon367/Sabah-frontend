@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { Box, Button, Container, ListItemIcon, Menu, MenuItem, Stack } from "@mui/material";
 import { NavLink } from "react-router-dom";
 import Basket from "./Basket";
@@ -34,7 +33,7 @@ export default function HomeNavbar(props: HomeNavbarProps){
             <Stack className="menu">
                 <Box>
                     <NavLink to="/">
-                        <img className="brand-logo" src="/icons/burak.svg" alt="no-image" />
+                        <img className="brand-logo" src="/icons/sabah.png" alt="no-image" />
                     </NavLink>
                 </Box>
                 <Stack className="links">
@@ -79,13 +78,22 @@ export default function HomeNavbar(props: HomeNavbarProps){
                             <Button variant="contained" className="login-button"  onClick={() => setLoginOpen(true)}>
                                 Login
                             </Button>
+                            {" "}
+                            {!authMember ? (
+                                <Button 
+                                    variant="contained" 
+                                    className="signup-button" onClick={() => setSignupOpen(true)}>
+                                        Signup
+                                </Button>
+                            ):null}
+                    
                         </Box>) : (
                             <img 
                                 className="user-avatar"
                                 src={authMember?.memberImage 
                                     ? `${serverApi}/${authMember?.memberImage}` 
                                     : "/icons/default-user.svg"}
-                                aria-haspopup={"true"}
+                                // aria-haspopup={"true"}
                                 onClick={handleLogoutClick}
                                 alt="no-image"/>
                         )}
@@ -127,41 +135,13 @@ export default function HomeNavbar(props: HomeNavbarProps){
                         >
                             <MenuItem onClick={handleLogoutRequest}>
                                 <ListItemIcon>
-                                    <Logout fontSize="small" style={{ color: 'blue' }} />
+                                    <Logout fontSize="small" style={{ color: 'black' }} />
                                 </ListItemIcon>
                                 Logout
                             </MenuItem>
                         </Menu>
-
-                </Stack>
-                
+                </Stack>                
             </Stack>
- 
-            <Stack className={"header-frame"}>
-                <Stack className={"detail"}>
-                    <Box className={"head-main-txt"}>
-                        World's Most Delicious Cousine
-                    </Box>
-                    <Box className={"wel-txt"}>The Choice, not just a choice</Box>
-                    <Box className={"service-txt"}> 24 hours service</Box>
-                    <Box className={"signup"}>
-                        {!authMember ? (
-                            <Button 
-                                variant="contained" 
-                                className={"signup-button"} onClick={() => setSignupOpen(true)}>
-                                    SIGN UP
-                            </Button>
-
-                        ):null}
-                    </Box>
-                    
-                </Stack>
-                <Box className={"logo-frame"}>
-                    <div className={"logo-img"}></div>
-                </Box>
-                        
-            </Stack>
-
         </Container>
 
     

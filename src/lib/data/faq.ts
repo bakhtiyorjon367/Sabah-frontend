@@ -5,7 +5,7 @@ export const faq = [
 	},
 	{
 		question: 'How long does delivery takes?',
-		answer: 'It depends on your location. The max delivery time is 1 hour!',
+		answer: 'It depends on your location. And working days!',
 	},
 	{
 		question: 'Is our details secure in this platform?',
@@ -21,6 +21,6 @@ export const faq = [
 	},
 	{
 		question: 'Who developed this platform?',
-		answer: 'ITC Global developers developed this platform!',
+		answer: 'MIT!',
 	},
 ];

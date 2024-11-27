@@ -10,8 +10,9 @@ export interface AppRootState {
 }
 
 export interface HomePageState{
-   popularDishes: Product[];
-   newDishes:     Product[];
+   popularProducts: Product[];
+   newProducts:     Product[];
+   recomendedProducts: Product[];
    topUsers:      Member[];
 
 }
@@ -19,7 +20,7 @@ export interface HomePageState{
 //PRODUCTS PAGE
 
 export interface ProductsPageState{
-    restaurant:    Member | null;
+    admin:    Member | null;
     chosenProduct: Product | null;
     products:      Product[];
 

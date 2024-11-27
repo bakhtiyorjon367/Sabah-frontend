@@ -5,18 +5,18 @@
 	background: #f8f8ff;
 }
 
-.user-page .css-heg063-MuiTabs-flexContainer {
+/* .user-page .css-heg063-MuiTabs-flexContainer {
 	flex-direction: column;
-}
+} */
 
-.user-page .css-mn3ro6-MuiTabs-indicator {
+/* .user-page .css-mn3ro6-MuiTabs-indicator {
 	height: 0px;
 	width: 0px;
-}
+} */
 
-.user-page .css-1ujnqem-MuiTabs-root {
+/* .user-page .css-1ujnqem-MuiTabs-root {
 	width: 100%;
-}
+} */
 
 .user-page .my-page-frame {
 	width: 100%;
@@ -43,7 +43,7 @@
 	font-style: normal;
 	font-weight: 600;
 	font-size: 45px;
-	color: #f8f8ff;
+	color: #9e9ea0;
 }
 
 .my-page-left .menu-content {
@@ -76,6 +76,7 @@
 	height: auto;
 	display: flex;
 	flex-direction: column;
+	margin-top: 120px;
 }
 
 .user-page .order-info-box {
@@ -86,9 +87,8 @@
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	background: #f6f2ff;
-	box-shadow: 15px 14px 4px rgba(0, 0, 0, 0.25), inset -1px 0px 16px 13px rgb(24 23 112 / 20%);
-	border-radius: 16px;
+	background: white;
+	box-shadow: 14px 14px 5px 0px #fdfdfd, 0px 1px 11px 12px #d3d3d5 inset, 0px 2px 4px 0px rgba(242, 189, 87, 0.04) inset;
 }
 
 .user-page .order-info-box .settings-btn {

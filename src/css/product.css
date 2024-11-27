@@ -18,13 +18,68 @@
     background: rgb(248, 248, 255);
 }
 
+
+/*_____Statistics___________________________________________________________________________________________________________________________________________*/
+ .products .static-frame{
+  width: 100%;
+  height: 90px;
+  background-color: #000000;
+  margin-top: -50px;
+  position: absolute;
+  justify-content:center;
+  color: #ffffff;
+  font-size: 14px;
+}
+
+.products-page .products .static-frame .info{
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.products-page .products .static-frame .info .static-box{
+  width: 200px;
+  height: 116px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.products-page .products .static-frame .info .static-box .static-num{
+  text-align: center;
+  font-family: Poppins;
+  font-size: 54px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 80px;
+  color: #d7b586
+}
+
+
+.products-page .products .static-frame .info .static-box .static-text{
+  text-align: center;
+  font-family: Poppins;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 30px;
+  color: #d7b586
+
+}
+
+
+
+
+
+/* _______________________________________________________________________________ */
 .products-page .products .avatar-big-box{
-    position: relative;
+    position: absolute;
     width: 820px;
     height: auto;
-    display: flex;
     flex-direction: column;
-    align-items: center;
 
 }
 
@@ -60,17 +115,21 @@
     justify-content: space-between;
     align-items: center;
     box-sizing: border-box;
-    width: 360px;
+    width: 560px;
     height: 35.68px;
-    border: 1px solid rgb(255, 255, 255);
+    border: 1px solid rgb(167, 165, 165);
     border-radius: 18.5px; 
     box-shadow: 0px 4px 4px 0px rgba(213, 213, 213, 0.25);
-    background: rgb(255, 252, 252);
+    background: rgb(169, 167, 167);
+    
 }
 
 .products-page .products .avatar-big-box .search-input{
     border: none;
-    margin-left: 17px;
+    width: 100%;
+    height: 35.68px;
+    border-radius: 18.5px;
+    padding: 0px 10px;
 }
 .products-page .products .avatar-big-box .search-input ::placeholder{
    
@@ -81,6 +140,7 @@
     line-height: 19px;
     letter-spacing: 0%;
     text-align: left;
+    margin-left: 10px;
 }
 
 .products-page .products .avatar-big-box .search-button{
@@ -102,6 +162,7 @@
     display:flex;
     flex-direction: row;
     justify-content: space-between;
+    margin-right: 45px;
 }
 .products-page .products .dishes-filter-section .dishes-filter-box .order{
     margin-right: 20px;
@@ -142,9 +203,10 @@
 }
 
 .products-page .products .list-category-section .product-card {
-    width: 273px;
-    height: 361px;
-    margin-bottom: 30px;
+  min-height: 630px;
+  min-width: 400px;
+  cursor: pointer;
+  padding: 15px;
 
 
 }
@@ -152,30 +214,27 @@
 .products-page .products .product-img{
     width: 100%;
     height: 100%;
-    border-radius: 0px 50px 0px 0px;
     background-position: center;
     background-size: cover;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    background-color: #ffffff;
+    box-shadow: 0px 0px 10px rgba(0, 0,
+    0, 0.4);
 
-
-}
-.products-page .products .product-img div{
-    width: 90px;
-    height: 30px;
 }
 .products-page .product-card .product-sale{
     position: absolute;
-    border-radius: 25px; 
+    border-radius: 15px; 
     box-shadow: 4px 6px 20px 0px rgba(0, 0, 0, 0.1);
     background: rgb(255, 146, 0);
     color: rgb(255, 255, 255);
-    font-family: Poppins;
-    font-size: 12px;
-    font-weight: 600;
-    line-height: 28px;
     letter-spacing: 0%;
     text-align: center;
-    margin-top: 16px;
+    margin-top: -480px;
     margin-left: 22px;
+    width: 100px;
 }
 
 
@@ -183,7 +242,7 @@
     position: absolute;
     width: 64px;
     height: 46px;
-    margin-top: 230px;
+    margin-top: 400px;
     margin-left: 105px;
     border: 1px solid green;
     opacity: 0;
@@ -205,7 +264,7 @@
 }
 .products-page  .product-img .view-btn{
    position: absolute;
-   margin-top: 240px;
+   margin-top: 400px;
    margin-left: 205px;
    opacity: 0;
     min-width: 40px;
@@ -218,16 +277,26 @@
     z-index: 3;
     opacity: 0;
     transition: opacity 0.5s, ease;
-    background: rgb(0,0,0,0.4);
+    background: rgba(0, 0, 0, 0.4);
     border-radius: 50%;
 } 
 
 .products-page  .product-img:hover{
-    opacity: 0.5;
+    opacity: 1.5;
+    backface-visibility: visible;
+    transform: scale(1.1);
+    transition: all 0.5s ease;
+
+    
+}
+.products-page .products  .product-img:hover .shop-btn{
+  opacity: 1.5;
+  background-color: #070707;
+  
 }
 .products-page .products  .product-img:hover .view-btn{
-    opacity: 1;
-    
+    opacity: 1.5;
+    background-color: #060606;
     
 }
 
@@ -248,6 +317,7 @@
     align-items: center;
 }
 
+
 .products-page .products .product-desc span{ 
     color: rgb(52, 52, 52);
     font-family: Poppins;
@@ -257,6 +327,25 @@
     letter-spacing: 0%;
     display: flex;
     justify-content: center;
+}
+
+.product-desc > div:first-child {
+  color: #333; 
+}
+
+.product-desc > div:first-child.sale {
+  
+  text-decoration: line-through;
+  color: #787777; 
+  margin-right: 10px;
+}
+
+.product-desc > div:last-child {
+  color: red;
+}
+
+.product-desc > div:last-child.hide {
+  display: none;
 }
 
 .products-page .products  .no-data{
@@ -278,27 +367,20 @@
 /*___________________________________________________________________________________________________________________*/
 .products-page .products .brands-logo{
     width: 100%;
-    height: 630px;
     margin-top: 53px;
-    background: rgb(13, 21, 24);
 }
 
-.products-page .products .brands-logo .family-brands{
+/* .products-page .products .brands-logo .family-brands{
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
 
-}
+} */
 
 .products-page .products .brands-logo .category-title{
-    color: rgb(227, 192, 141);
-    font-family: Roboto;
-    font-size: 36px;
-    font-weight: 700;
-    line-height: 42px;
-    letter-spacing: 0%;
-    text-align: center;
+  margin-left: 10px;
+  font-family: Roboto;
     
 }
 
@@ -307,22 +389,18 @@
     height: 351px;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-
-   
-
 }
 .products-page .products .brands-logo .brand-list .review-box{
-    
-    border: 2px solid ;
-    width: 258px;
-    height: 351px;
-    border-radius: 20px; 
-    box-shadow: 0px 0px 22px 0px rgb(228, 212, 212);
-    background: rgb(13, 21, 24);
-
-
+  border: 1px solid ;
+  width: 258px;
+  height: 351px;
+  box-shadow: 0px 0px 22px 0px rgb(228, 212, 212);
+  margin-right: 10px;
+}
+.products-page .products .brands-logo .brand-list .review-box a{
+  position: absolute;
+  color:white;
+  margin-right: 10px;
 }
 .products-page .products .brands-logo .brand-list .review-box img{
     width: 100%;
@@ -333,13 +411,12 @@
 }
 
 .products-page .products .address{
-    margin: 80px;
+  margin: 80px;
 }
 .products-page .products .address .address-area{
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    align-items: left;
 }
 
 
@@ -377,21 +454,20 @@
     justify-content: space-between;
     margin-top: 80px;
     margin-bottom: 150px;
+
   }
   
   .products-page .chosen-product .chosen-product-slider {
-    width: 48%;
-    height: 480px;
+    width: 58%;
+    height: 700px;
     background: #ffffff;
-    box-shadow: 9px 13px 14px 5px rgba(0, 0, 0, 0.25),
-      inset -1px 2px 10px 3px rgba(0, 0, 0, 0.25);
-    border-radius: 16px;
-    overflow: hidden;
+    box-shadow: 0px 0px 10px rgba(0, 0,
+    0, 0.4);
   }
   
   .products-page .chosen-product .chosen-product-slider .swiper-area {
-    --swiper-navigation-color: #fff;
-    --swiper-pagination-color: #fff;
+    --swiper-navigation-color: #747373;
+    --swiper-pagination-color: #747373;
     width: 100%;
     height: 1020px;
   }
@@ -407,12 +483,9 @@
   
   .products-page .chosen-product .chosen-product-info {
     padding: 30px 40px;
-    width: 49%;
-    height: 480px;
+    width: 40%;
+    height: 700px;
     display: flex;
-    background: #ffffff;
-    box-shadow: 9px 13px 14px 5px rgba(0, 0, 0, 0.25),
-      inset -1px 2px 10px 3px rgba(0, 0, 0, 0.25);
     border-radius: 16px;
   }
   

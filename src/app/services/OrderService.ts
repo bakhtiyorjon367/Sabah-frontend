@@ -16,6 +16,7 @@ class OrderService {
                 return {
                     itemQuantity: cartItem.quantity,
                     itemPrice: cartItem.price,
+                    salePrice:cartItem.salePrice,
                     productId: cartItem._id,
                 };
             });

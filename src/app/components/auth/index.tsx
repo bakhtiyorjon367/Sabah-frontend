@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
@@ -44,6 +44,7 @@ interface AuthenticationModalProps {
 }
 
 export default function AuthenticationModal(props: AuthenticationModalProps) {
+
   const { signupOpen, loginOpen, handleSignupClose, handleLoginClose } = props;
   const classes = useStyles();
   const [memberNick, setMemberNick] =   useState<string>("");
@@ -52,7 +53,6 @@ export default function AuthenticationModal(props: AuthenticationModalProps) {
   const {setAuthMember} = useGlobals();
 
   /** HANDLERS **/
-
   const handleUsername = (e:T) => { 
     setMemberNick(e.target.value);
   }
@@ -94,7 +94,6 @@ export default function AuthenticationModal(props: AuthenticationModalProps) {
     }
   }//_____________________________________________________________________________________
 
-
   const handleLoginRequest= async () => { 
     try{
       const isFullfill = memberNick === "" && memberPassword === "" ;
@@ -133,22 +132,27 @@ export default function AuthenticationModal(props: AuthenticationModalProps) {
       >
         <Fade in={signupOpen}>
           <Stack
-            className={classes.paper}
+            // className={classes.paper}
             direction={"row"}
             sx={{ width: "800px" }}
           >
-            <ModalImg src={"/img/auth.webp"} alt="camera" />
-            <Stack sx={{ marginLeft: "69px", alignItems: "center" }}>
-              <h2>Signup Form</h2>
+            <ModalImg src={"/img/background.jpg"} alt="camera" style={{width:'700px', height:'100%', opacity:0.8}} />
+            <Stack sx={{
+                position:"absolute",
+                marginLeft: "215px",
+                marginTop: "25px",
+                alignItems: "center",
+              }}>
+              <h2>Signup </h2>
               <TextField
-                sx={{ marginTop: "7px" }}
+                sx={{ my: "10px",width:'300px'}}
                 id="outlined-basic"
                 label="username"
                 variant="outlined"
                 onChange={handleUsername}
               />
               <TextField
-                sx={{ my: "17px" }}
+                sx={{ my: "10px",width:'300px'}}
                 id="outlined-basic"
                 label="phone number"
                 variant="outlined"
@@ -158,6 +162,7 @@ export default function AuthenticationModal(props: AuthenticationModalProps) {
                 id="outlined-basic"
                 label="password"
                 variant="outlined"
+                sx={{width:'300px'}}
                 onChange={handlePassword}
                 onKeyDown={handlePasswordKeyDown}
                 
@@ -190,24 +195,25 @@ export default function AuthenticationModal(props: AuthenticationModalProps) {
       >
         <Fade in={loginOpen}>
           <Stack
-            className={classes.paper}
+            // className={classes.paper}
             direction={"row"}
-            sx={{ width: "700px" }}
+            sx={{ width: "700px"}}
           >
-            <ModalImg src={"/img/auth.webp"} alt="camera" />
+            <ModalImg src={"/img/background.jpg"} alt="camera" style={{width:'700px', height:'100%', opacity:0.8}} />
             <Stack
               sx={{
-                marginLeft: "65px",
+                position:"absolute",
+                marginLeft: "215px",
                 marginTop: "25px",
                 alignItems: "center",
               }}
             >
-              <h2>Login Form</h2>
+              <h2 style={{ fontFamily:'sans-serif'}}>Login</h2>
               <TextField
                 id="outlined-basic"
                 label="username"
-                variant="outlined"
-                sx={{ my: "10px" }}
+                variant="outlined"                
+                sx={{ my: "10px",width:'300px'}}
                 onChange={handleUsername}
               />
               <TextField
@@ -215,6 +221,7 @@ export default function AuthenticationModal(props: AuthenticationModalProps) {
                 label={"password"}
                 variant={"outlined"}
                 type={"password"}
+                sx={{ width:'300px'}}
                 onChange={handlePassword}
                 onKeyDown={handlePasswordKeyDown}
               />

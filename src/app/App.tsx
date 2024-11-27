@@ -17,6 +17,7 @@ import { useGlobals } from './hooks/useGlobals';
 import '../css/app.css';
 import '../css/navbar.css';
 import '../css/footer.css';
+import { CartItem } from '../lib/types/search';
 
 
 function App() {
@@ -33,9 +34,9 @@ function App() {
   /** Handler */
   const handleSignupClose = () => setSignupOpen(false);
   const handleLoginClose = () => setLoginOpen(false);
-
   const hadleLogoutClick = (e: React.MouseEvent<HTMLElement>) => { setAnchorEl(e.currentTarget); }
   const hadleCloseLogout = () => {setAnchorEl(null); }
+ 
   const handleLogoutRequest = async () => {
     try{
       const member = new MemberService();
@@ -51,7 +52,6 @@ function App() {
 
   
   return (
-
     <>
         {location.pathname === "/" ? <HomeNavbar cartItems={cartItems}  
                                                  onAdd={onAdd} 
@@ -64,7 +64,7 @@ function App() {
                                                  handleLogoutClick={hadleLogoutClick}
                                                  handleCloseLogout={hadleCloseLogout}
                                                  handleLogoutRequest={handleLogoutRequest}
-                                                 /> 
+                                        /> 
                                     : <OtherNavbar cartItems={cartItems} 
                                                     onAdd={onAdd} 
                                                     onRemove={onRemove} 
@@ -76,7 +76,7 @@ function App() {
                                                     handleLogoutClick={hadleLogoutClick}
                                                     handleCloseLogout={hadleCloseLogout}
                                                     handleLogoutRequest={handleLogoutRequest}
-                                                 />
+                                        />
           }
         <Switch>
             <Route path="/products">
@@ -96,7 +96,6 @@ function App() {
             </Route>
         </Switch>
         <Footer/>
-
         <AuthenticationModal
           signupOpen={signupOpen}
           loginOpen={loginOpen}

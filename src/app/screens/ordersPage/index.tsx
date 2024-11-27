@@ -106,12 +106,14 @@ export default function OrdersPage() {
                            : "/icons/default-user.svg"
                         }
                               className={"order-user-avatar"}
+                              alt="no-image"
                         />
                       
                         <div className={"order-user-icon-box"}>
-                        <img src={authMember?.memberType === MemberType.RESTAURANT 
+                        <img src={authMember?.memberType === MemberType.ADMIN 
                                   ? "/icons/restaurant.svg" 
-                                  : "/icons/user-badge.svg"} />
+                                  : "/icons/user-badge.svg"}
+                                  alt="no-image" />
                         </div>
                     </div>
                     <span className={"order-user-name"}> {authMember?.memberNick} </span>
@@ -142,17 +144,17 @@ export default function OrdersPage() {
                   </div>
                   
                   <Box className={"order-card-name"}>
-                    <p>Justin Robertson</p>
+                    <p>{authMember?.memberNick}</p>
                   </Box>
                  
                   
 
                   <Box className={"order-card-img"}>
                     
-                    <img src="./icons/western-card.svg"/>
-                    <img src="./icons/visa-card.svg"/>
-                    <img src="./icons/paypal-card.svg"/>
-                    <img src="./icons/master-card.svg"/>
+                    <img src="./icons/western-card.svg" alt="no-image"/>
+                    <img src="./icons/visa-card.svg" alt="no-image"/>
+                    <img src="./icons/paypal-card.svg" alt="no-image"/>
+                    <img src="./icons/master-card.svg" alt="no-image"/>
                   </Box>
               </Box>
           </Stack>
@@ -161,5 +163,5 @@ export default function OrdersPage() {
         </Container>;
       
       </div>
-    );
-  }
+    )
+  };

@@ -1,24 +1,26 @@
 import Statistics from "./Statistics";
-import PopularDishes from "./PopularDishes";
-import NewDishes from "./NewDishes";
+import PopularProducts from "./PopularProducts";
+import NewProducts from "./NewProducts";
 import Advertisement from "./Advertisiment";
 import ActiveUsers from "./ActiveUsers";
 import Events from "./Events";
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Dispatch } from "@reduxjs/toolkit";
-import { setNewDishes, setPopularDishes, setTopUsers } from "./slice";
+import { setNewProducts, setPopularProducts, setRecomendedProducts, setTopUsers } from "./slice";
 import { Product } from "../../../lib/types/product";
 import ProductService from "../../services/ProductService";
-import { ProductCollection } from "../../../lib/enums/product.enum";
+import {  ProductStatus, ProductType } from "../../../lib/enums/product.enum";
 import "../../../css/home.css";
 import MemberService from "../../services/MemberService";
 import { Member } from "../../../lib/types/member";
+import { CartItem } from "../../../lib/types/search";
 
 //REDUX SLICE   (writing data to redux)
 const actionDispatch = (dispatch: Dispatch) => ({
-        setPopularDishes:   (data:Product[]) => dispatch(setPopularDishes(data)),
-        setNewDishes: (data:Product[]) => dispatch(setNewDishes(data)),
+        setPopularProducts:   (data:Product[]) => dispatch(setPopularProducts(data)),
+        setNewProducts: (data:Product[]) => dispatch(setNewProducts(data)),
+        setRecomendedProducts: (data:Product[]) => dispatch(setRecomendedProducts(data)),
         setTopUsers:  (data:Member[])  => dispatch(setTopUsers(data)),
 });
 
@@ -26,7 +28,7 @@ const actionDispatch = (dispatch: Dispatch) => ({
 
 export default function HomePage() {
   
-const {setPopularDishes, setNewDishes, setTopUsers } = actionDispatch(useDispatch());
+const {setPopularProducts, setNewProducts, setRecomendedProducts, setTopUsers } = actionDispatch(useDispatch());
 
 
   useEffect(() =>{  //Backend server data request -> Data
@@ -35,22 +37,33 @@ const {setPopularDishes, setNewDishes, setTopUsers } = actionDispatch(useDispatc
 
     product.getProducts({
       page:1,
-      limit:4,
-      order:"productViews",
-      productCollection: ProductCollection.DISH}
-    ).then((data) => {
-      setPopularDishes(data);
+      limit:5,
+      order:"productView",
+      // productType: ProductType.FRAGRANCE
+    }).then((data) => {
+      setPopularProducts(data);
     }).catch((err)=>{
       console.log(err);
     });
 
-    product.getProducts(
-      {page:1,
-      limit:4,
-      order:"createdAt",
-      //productCollection: ProductCollection.DISH
+    product.getProducts({
+      page:1,
+      limit:8,
+      order:"updatedAt",
+      productStatus:ProductStatus.RECOMEND
     }).then((data) => {
-      setNewDishes(data);
+      const recomendProducts = data.filter((product) => product.productStatus === ProductStatus.RECOMEND);
+      setRecomendedProducts(recomendProducts);
+    }).catch((err)=>{
+      console.log(err);
+    });
+
+    product.getProducts({
+      page:1,
+      limit:5,
+      order:"createdAt",
+    }).then((data) => {
+      setNewProducts(data);
     }).catch((err)=>{
       console.log(err);
     });
@@ -65,12 +78,13 @@ const {setPopularDishes, setNewDishes, setTopUsers } = actionDispatch(useDispatc
   },[]);
 
     return <div className={"homepage"}>
-      <Statistics/>
-      <PopularDishes/>
-      <NewDishes/>
+      <Statistics />
+      <Events/>
+      <PopularProducts/>
+      <NewProducts/>
       <Advertisement/>
       <ActiveUsers/>
-      <Events/>
+      
     </div>;
 }
   

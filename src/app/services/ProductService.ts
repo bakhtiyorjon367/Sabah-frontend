@@ -9,11 +9,13 @@ class ProductService {
     constructor() {
         this.path = serverApi;
     }
+    
     public async getProducts(input: ProductInquiry):Promise<Product[]>{
         try{
             let url = `${this.path}/product/all?order=${input.order}&page=${input.page}&limit=${input.limit}`;
-            if(input.productCollection) url += `&productCollection=${input.productCollection}`;
+            if(input.productType) url += `&productType=${input.productType}`;
             if(input.search) url += `&search=${input.search}`;
+            if(input.productStatus) url+=`&productStatus=${input.productStatus}`;
 
             const result = await axios.get(url);
             console.log("getProducts", result);
@@ -24,9 +26,7 @@ class ProductService {
             console.log("Error, getProduct ",err);
             throw err;
         }
-
-
-    }
+    }//______________________________________________________________
 
 
     public async getProduct(productId:string):Promise<Product>{
@@ -37,13 +37,12 @@ class ProductService {
             console.log("getProduct", result);
 
             return result.data;
-
         }catch(err){
             console.log("Error, getProduct ",err);
             throw err;
         }
+    }//______________________________________________________________
 
 
-    }
-}
+}//_________________________________________________________________________
 export default ProductService;  // default export
