@@ -10,11 +10,10 @@ import { Dispatch } from "@reduxjs/toolkit";
 import { setNewProducts, setPopularProducts, setRecomendedProducts, setTopUsers } from "./slice";
 import { Product } from "../../../lib/types/product";
 import ProductService from "../../services/ProductService";
-import {  ProductStatus, ProductType } from "../../../lib/enums/product.enum";
+import {  ProductStatus } from "../../../lib/enums/product.enum";
 import "../../../css/home.css";
 import MemberService from "../../services/MemberService";
 import { Member } from "../../../lib/types/member";
-import { CartItem } from "../../../lib/types/search";
 
 //REDUX SLICE   (writing data to redux)
 const actionDispatch = (dispatch: Dispatch) => ({
@@ -69,13 +68,11 @@ const {setPopularProducts, setNewProducts, setRecomendedProducts, setTopUsers } 
     });
 
     const member = new MemberService();
-
     member.getTopUsers()
           .then((data) => { setTopUsers(data)})
           .catch((err) => { console.log(err);
     });
-    
-  },[]);
+  },[setNewProducts, setPopularProducts,setTopUsers]);
 
     return <div className={"homepage"}>
       <Statistics />

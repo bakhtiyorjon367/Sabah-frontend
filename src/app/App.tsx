@@ -17,7 +17,6 @@ import { useGlobals } from './hooks/useGlobals';
 import '../css/app.css';
 import '../css/navbar.css';
 import '../css/footer.css';
-import { CartItem } from '../lib/types/search';
 
 
 function App() {

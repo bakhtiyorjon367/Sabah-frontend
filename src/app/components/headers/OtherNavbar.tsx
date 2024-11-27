@@ -8,9 +8,7 @@ import { serverApi } from "../../../lib/config";
 import { Logout } from "@mui/icons-material";
 import { setProducts } from "../../screens/productsPage/slice";
 import { Product, ProductInquiry } from "../../../lib/types/product";
-import { createSelector } from "@reduxjs/toolkit";
-import { retrieveProducts } from "../../screens/productsPage/selector";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import ProductService from "../../services/ProductService";
 import { Dispatch } from "@reduxjs/toolkit";
 
@@ -33,19 +31,14 @@ const actionDispatch = (dispatch: Dispatch) => ({
     setProducts:   (data:Product[]) => dispatch(setProducts(data)),
 });
 /**   Select */
-const productsRetriever = createSelector(
-    retrieveProducts,
-   (products) => ({products})
-  );
-
 
 export default function HomeNavbar(props: HomeNavbarProps){
     const { cartItems, onAdd,onRemove, onDelete, onDeleteAll, setSignupOpen, setLoginOpen, handleLogoutClick, anchorEl, handleCloseLogout, handleLogoutRequest} = props;
     const {authMember} = useGlobals();
+    // eslint-disable-next-line no-unused-vars
     const [searchText, setSearchText] = useState<string>("");
     
     const {setProducts} =actionDispatch(useDispatch());
-    const {products} = useSelector(productsRetriever);
     const [productSearch, setProductSearch] = useState<ProductInquiry>({
         page:1,
         limit:8,
@@ -67,13 +60,9 @@ useEffect(() => {
         productSearch.search = "";
         setProductSearch({...productSearch});
     }
-}, []);
+}, [searchText]);
 
-    // Handlers
-    const searchProductHandler = () => {
-        productSearch.search = searchText;
-        setProductSearch({...productSearch});
-    };
+// Handlers
 
     return ( 
     <div className="home-navbar"> 

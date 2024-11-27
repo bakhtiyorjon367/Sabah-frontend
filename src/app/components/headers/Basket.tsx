@@ -76,7 +76,7 @@ export default function Basket(props : BasketProps ) {
       >
         <Badge badgeContent={cartItems.length} color="secondary"  style={{color:'black'}}>
 
-          <img src={"/icons/shopping-cart.svg"}  style={{color:'black'}} />
+          <img src={"/icons/shopping-cart.svg"} alt="shopping"  style={{color:'black'}} />
         </Badge>
       </IconButton>
       <Menu
@@ -142,7 +142,7 @@ export default function Basket(props : BasketProps ) {
                     <div className={"cancel-btn"}>
                       <CancelIcon color={"primary"} onClick={() =>  onDelete(item)}/>
                     </div>
-                    <img src={imagePath} className={"product-img"} />
+                    <img src={imagePath} alt="" className={"product-img"} />
                     <span className={"product-name"}>{item.name}</span>
                     {salePrice > 0 ? (
                       <p className={"product-price"}>

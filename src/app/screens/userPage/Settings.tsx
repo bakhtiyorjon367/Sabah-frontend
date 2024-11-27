@@ -90,7 +90,7 @@ export function Settings() {
   return (
     <Box className={"settings"}>
       <Box className={"member-media-frame"}>
-        <img src={memberImage} className={"mb-image"} />
+        <img src={memberImage} className={"mb-image"} alt="no-image"/>
         <div className={"media-change-box"}>
           <span>Upload image</span>
           <p>JPG, JPEG, PNG formats only!</p>

@@ -1,8 +1,6 @@
-import React from "react";
 import { Box, Container, Stack } from "@mui/material";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { Margin, Sanitizer } from "@mui/icons-material";
 
 const Footers = styled.div`
   width: 100%;
@@ -28,10 +26,10 @@ export default function Footer() {
               Our purpose is to expand the way the world sees beauty by empowering the extraordinary in each of us.
             </Box>
             <Box className="sns-context">
-              <img src={"/icons/facebook.svg"} />
-              <img src={"/icons/twitter.svg"} />
-              <img src={"/icons/instagram.svg"} />
-              <img src={"/icons/youtube.svg"} />
+              <img src={"/icons/facebook.svg"} alt="facebook"/>
+              <img src={"/icons/twitter.svg"} alt="twitter"/>
+              <img src={"/icons/instagram.svg"} alt="instagram"/>
+              <img src={"/icons/youtube.svg"} alt="youtube"/>
             </Box>
           </Stack>
           <Stack sx={{ ml: "288px" }} flexDirection={"row"}>

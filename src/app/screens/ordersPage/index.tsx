@@ -14,10 +14,10 @@ import { Order, OrderInquiry } from "../../../lib/types/order";
 import { OrderStatus } from "../../../lib/enums/order.enum";
 import OrderService from "../../services/OrderService";
 import { useGlobals } from "../../hooks/useGlobals";
-import "../../../css/order.css";
 import { useHistory } from "react-router-dom";
 import { serverApi } from "../../../lib/config";
 import { MemberType } from "../../../lib/enums/member.enum";
+import "../../../css/order.css";
 
 //REDUX SLICE   (writing data to redux)
 const actionDispatch = (dispatch: Dispatch) => ({
@@ -38,7 +38,7 @@ export default function OrdersPage() {
     limit: 5,
     orderStatus: OrderStatus.PAUSE,
   });
-
+// eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     const order = new OrderService();
 

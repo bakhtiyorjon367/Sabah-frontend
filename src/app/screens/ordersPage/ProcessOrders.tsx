@@ -14,8 +14,6 @@ import OrderService from "../../services/OrderService";
 import { sweetErrorHandling } from "../../../lib/sweetAlert";
 import { T } from "../../../lib/types/common";
 
-
-
 //REDUX SELECTOR 
 const processOrdersRetriever = createSelector(
     retrieveProcessOrders,
@@ -73,13 +71,14 @@ export default function ProcessOrders(props: ProcessOrdersProps){
                                             <Box key={item._id} className={"orders-name-price"}>
                                                 <img src={imagePath}
                                                      className={"order-dish-img"}
+                                                     alt="no-image"
                                                 />
                                                 <p className="title-dish"> {product.productName} </p>
                                                 <Box className={"price-box"}>
                                                     <p>{product.salePrice ? (item.itemPrice-product.salePrice) : item.itemPrice}$</p>
-                                                    <img src={"/icons/close.svg"}/>
+                                                    <img src={"/icons/close.svg"} alt="no-image"/>
                                                     <p>{item.itemQuantity}</p>
-                                                    <img src={"/icons/pause.svg"}/>
+                                                    <img src={"/icons/pause.svg"} alt="no-image"/>
                                                     <p style={{marginLeft: "15px"}}> { product.salePrice ? (item.itemQuantity * (item.itemPrice-product.salePrice)) : item.itemQuantity * item.itemPrice}$ </p>
                                                 </Box>
                                             </Box>
@@ -123,6 +122,7 @@ export default function ProcessOrders(props: ProcessOrdersProps){
                     <Box display={"flex"} flexDirection={"row"} justifyContent={"center"}>
                     <img src={"/icons/noimage-list.svg"}
                          style={{width: 300, height:300}}
+                         alt="no-image"
                     />
                   </Box>
                 ))}

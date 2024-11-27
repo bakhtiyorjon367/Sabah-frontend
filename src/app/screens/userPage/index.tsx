@@ -6,9 +6,9 @@ import YouTubeIcon from "@mui/icons-material/YouTube";
 import { Settings } from "./Settings";
 import { useHistory } from "react-router-dom";
 import { useGlobals } from "../../hooks/useGlobals";
-import "../../../css/userPage.css";
 import { serverApi } from "../../../lib/config";
 import { MemberType } from "../../../lib/enums/member.enum";
+import "../../../css/userPage.css";
 
 export default function UserPage() {
   const history = useHistory();
@@ -20,9 +20,8 @@ export default function UserPage() {
       <Container>
         <Stack className={"my-page-frame"}>
           <Stack className={"my-page-left"}>
-          <Box className={"menu-name"}>Modify Member Details</Box>
+            <Box className={"menu-name"}>Modify Member Details</Box>
             <Box display={"flex"} flexDirection={"column"}>
-              
               <Box className={"menu-content"}>
                 <Settings />
               </Box>
@@ -42,11 +41,13 @@ export default function UserPage() {
                         ? `${serverApi}/${authMember?.memberImage}`
                         : "/icons/default-user.svg"}
                     className={"order-user-avatar"}
+                    alt="no-image"
                   />
                   <div className={"order-user-icon-box"}>
                     <img src={authMember?.memberType === MemberType.ADMIN 
                                   ? "/icons/restaurant.svg" 
-                                  : "/icons/user-badge.svg"} />
+                                  : "/icons/user-badge.svg"} 
+                                  alt="no-image"/>
                   </div>
                 </div>
                 <span className={"order-user-name"}>{authMember?.memberNick}</span>

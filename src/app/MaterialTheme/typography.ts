@@ -1,3 +1,4 @@
+// eslint-disable-next-line react-hooks/exhaustive-deps
 export default {
 	h1: {
 		fontWeight: 500,
