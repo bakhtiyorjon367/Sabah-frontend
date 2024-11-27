@@ -35,8 +35,8 @@ export default function Events() {
             clickable: true,
           }}
           direction={'horizontal'}
-          slidesPerView={4}
-          spaceBetween={10}
+          slidesPerView={3}
+          spaceBetween={5}
           mousewheel={false}
           modules={[ Mousewheel, Pagination]}
 
@@ -48,8 +48,7 @@ export default function Events() {
               <SwiperSlide key={product._id} className={"events-info-frame"} >
                 <Box className={"events-img"}>
                   <img src={imagePath} alt="no-image" />
-                </Box>
-                <Box className={"events-desc"} >
+                  <Box className={"events-desc"} >
                   <Box className={"events-bott"}>
                     <Box className={"bott-left"}>
                       <div className={"event-title-speaker"}>
@@ -57,9 +56,9 @@ export default function Events() {
                         <p className={"text-desc"}> {product.productDesc} </p>
                       </div>
                     </Box>
-                    <Button variant="outlined" sx={{marginLeft:"14px", 
+                    <Button variant="outlined" sx={{marginLeft:"14px", marginTop:'30px',
                                   fontWeight:"bold", 
-                                  fontSize:"24px", 
+                                  fontSize:"26px", 
                                   letterSpacing:"-2px", 
                                   fontFamily:"revert"}}
                                   onClick={()=> {
@@ -68,7 +67,9 @@ export default function Events() {
                       </Button>
                   </Box>
                   
+                 </Box>
                 </Box>
+               
                 
                 
               </SwiperSlide>

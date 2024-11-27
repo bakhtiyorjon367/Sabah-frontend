@@ -75,7 +75,7 @@ const {setPopularProducts, setNewProducts, setRecomendedProducts, setTopUsers } 
   },[setNewProducts, setPopularProducts,setTopUsers]);
 
     return <div className={"homepage"}>
-      <Statistics />
+      {/* <Statistics /> */}
       <Events/>
       <PopularProducts/>
       <NewProducts/>
