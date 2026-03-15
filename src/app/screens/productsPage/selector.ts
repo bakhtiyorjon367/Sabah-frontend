@@ -14,5 +14,5 @@ export const retrieveChosenProduct = createSelector(
 
 export const retrieveProducts = createSelector(
     selectProductsPage,
-    (ProductsPage) => ProductsPage.products,
+    (ProductsPage) => (Array.isArray(ProductsPage?.products) ? ProductsPage.products : []),
 );

@@ -13,16 +13,16 @@ const homePageSlice  = createSlice({
     initialState,
     reducers: {
         setPopularProducts: (state, action) => {
-            state.popularProducts = action.payload;
+            state.popularProducts = Array.isArray(action.payload) ? action.payload : [];
         },
         setNewProducts: (state, action) => {
-            state.newProducts = action.payload;
+            state.newProducts = Array.isArray(action.payload) ? action.payload : [];
             },
         setRecomendedProducts: (state, action) => {
-                state.recomendedProducts = action.payload;
+                state.recomendedProducts = Array.isArray(action.payload) ? action.payload : [];
                 },
         setTopUsers: (state, action) => {
-            state.topUsers = action.payload;
+            state.topUsers = Array.isArray(action.payload) ? action.payload : [];
         },
     },
                
