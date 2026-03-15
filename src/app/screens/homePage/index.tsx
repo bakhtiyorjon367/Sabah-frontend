@@ -1,4 +1,3 @@
-import Statistics from "./Statistics";
 import PopularProducts from "./PopularProducts";
 import NewProducts from "./NewProducts";
 import Advertisement from "./Advertisiment";
@@ -72,7 +71,7 @@ const {setPopularProducts, setNewProducts, setRecomendedProducts, setTopUsers } 
           .then((data) => { setTopUsers(data)})
           .catch((err) => { console.log(err);
     });
-  },[setNewProducts, setPopularProducts,setTopUsers]);
+  },[setNewProducts, setPopularProducts, setRecomendedProducts, setTopUsers]);
 
     return <div className={"homepage"}>
       {/* <Statistics /> */}

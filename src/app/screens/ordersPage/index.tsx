@@ -33,12 +33,11 @@ export default function OrdersPage() {
   const {orderBuilder, authMember} = useGlobals();
   const history = useHistory();
   const [value, setValue] = useState("1");
-  const [orderInquiry, setOrderInquiry] = useState<OrderInquiry>({
+  const [orderInquiry] = useState<OrderInquiry>({
     page: 1,
     limit: 5,
     orderStatus: OrderStatus.PAUSE,
   });
-// eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     const order = new OrderService();
 
@@ -57,7 +56,7 @@ export default function OrdersPage() {
       .then((data) => setFinishedOrders(data))
       .catch((err) => console.log(err))
   
-  }, [orderInquiry, orderBuilder]);
+  }, [orderInquiry, orderBuilder, setPausedOrders, setProcessOrders, setFinishedOrders]);
 
 
   /**   Handlers */

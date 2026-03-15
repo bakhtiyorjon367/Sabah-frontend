@@ -35,9 +35,8 @@ const actionDispatch = (dispatch: Dispatch) => ({
 export default function HomeNavbar(props: HomeNavbarProps){
     const { cartItems, onAdd,onRemove, onDelete, onDeleteAll, setSignupOpen, setLoginOpen, handleLogoutClick, anchorEl, handleCloseLogout, handleLogoutRequest} = props;
     const {authMember} = useGlobals();
-    // eslint-disable-next-line no-unused-vars
-    const [searchText, setSearchText] = useState<string>("");
-    
+    const [searchText] = useState<string>("");
+
     const {setProducts} =actionDispatch(useDispatch());
     const [productSearch, setProductSearch] = useState<ProductInquiry>({
         page:1,
@@ -53,14 +52,13 @@ useEffect(()=>{
         setProducts(data);
     }).catch(err => console.log(err));
 
-},[productSearch]);
+},[productSearch, setProducts]);
 
 useEffect(() => {
-    if(searchText === ""){
-        productSearch.search = "";
-        setProductSearch({...productSearch});
+    if (searchText === "") {
+        setProductSearch((prev) => ({ ...prev, search: "" }));
     }
-}, [searchText]);
+}, [searchText, setProductSearch]);
 
 // Handlers
 
@@ -131,7 +129,6 @@ useEffect(() => {
                                 src={authMember?.memberImage 
                                     ? `${serverApi}/${authMember?.memberImage}` 
                                     : "/icons/default-user.svg"}
-                                aria-haspopup={"true"}
                                 onClick={handleLogoutClick}
                                 alt="no-image"/>
                         )}

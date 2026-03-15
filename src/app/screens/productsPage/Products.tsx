@@ -54,14 +54,14 @@ interface ProductsProps{
             setProducts(data);
         }).catch(err => console.log(err));
 
-    },[productSearch]);
+    },[productSearch, setProducts]);
 
     useEffect(() => {
-        if(searchText === ""){
+        if (searchText === "") {
             productSearch.search = "";
-            setProductSearch({...productSearch});
+            setProductSearch({ ...productSearch });
         }
-    }, [searchText]);
+    }, [searchText, productSearch, setProductSearch]);
 
     /** _________________________________________HANDLERS_____________________________________*/
     const searchCollectionHandler = (collection: ProductType) =>{

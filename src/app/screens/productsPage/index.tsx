@@ -3,16 +3,9 @@ import { Route, Switch, useRouteMatch } from 'react-router-dom';
 import   ChosenProduct from './ChosenProduct';
 import   Products from './Products';
 import { CartItem } from '../../../lib/types/search';
-import { Dispatch } from "@reduxjs/toolkit";
-import { setProducts } from "./slice";
-import { Product, ProductInquiry } from "../../../lib/types/product";
+import { ProductInquiry } from "../../../lib/types/product";
 import "../../../css/product.css";
 import "../../../css/home.css";
-
-/**   Slice  */
-const actionDispatch = (dispatch: Dispatch) => ({
-  setProducts:   (data:Product[]) => dispatch(setProducts(data)),
-});
 
 interface ProductsPageProps{
   onAdd: (item:CartItem) => void;

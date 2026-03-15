@@ -63,7 +63,7 @@ export default function ChosenProduct(props:ChosenProductProps ) {
   member.getAdmin().then((data) => setAdmin(data))
                         .catch(err => console.log(err));
   
- }, []);
+ }, [productId, setAdmin, setChosenProduct]);
 
 if(!chosenProduct) return null;
   return (
